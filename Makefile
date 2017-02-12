@@ -1,6 +1,6 @@
 #------------------------------------------------------------------------------
-# Project's name
-# #------------------------------------------------------------------------------
+# Alpha and Pearson using R
+#------------------------------------------------------------------------------
 PROGRAM = alpha_pearson
 CC = Rscript
 SOURCE = alpha_pearson.R
@@ -12,7 +12,6 @@ all: $(PROGRAM)
 
 $(PROGRAM): $(SOURCE)
 	@echo "Initing process..."
-	@echo "Calc..."
 	@$(CC) $(SOURCE)
 	@echo "Done!"
 
