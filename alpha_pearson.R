@@ -2,7 +2,7 @@
 
 # List of packages to install
 print("Install packages...")
-list.of.packages <- c("readODS", "psy", 'psych')
+list.of.packages <- c("readODS", "psy", 'psych', 'arules')
 
 # Install packages only if dont exists
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
@@ -13,6 +13,9 @@ print("Done!")
 print("Loading libraries...")
 library(readODS, psy)
 library(psych)
+library(arules)
+library("arulesViz")
+library(methods)
 print("Done!")
 
 # Read table ods
