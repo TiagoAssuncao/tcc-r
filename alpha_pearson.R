@@ -43,3 +43,22 @@ result_pearson = cor(table_votes)
 # Write csv with result of pearson
 write.csv(result_pearson, file = "bin/pearson.csv")
 print("Finish!")
+
+matrix_votes <- as.matrix(table_votes)
+matrix_votes[!is.finite(matrix_votes)] <- 0 
+matrix_votes <- ifelse(matrix_votes<4,0,matrix_votes)
+matrix_votes <- ifelse(matrix_votes>3,1,matrix_votes)
+transactions <- as(matrix_votes, 'transactions')
+# rules <- apriori(transactions, parameter = list(support=0.1, confidence=1))
+# inspect(head(sort(rules, by="lift"),10));
+# labels(apriori_result) rules <- apriori(Adult,
+rules <- apriori(
+                 transactions,
+                 parameter = list(
+                                  minlen=10,
+                                  supp = 0.7,
+                                  conf = 0.9,
+                                  target = "rules"))
+summary(rules)
+labels(rules)
+symnum(table_votes)
