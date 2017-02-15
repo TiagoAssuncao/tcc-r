@@ -3,7 +3,7 @@
 #------------------------------------------------------------------------------
 PROGRAM = alpha_pearson
 CC = Rscript
-SOURCE = alpha_pearson.R
+SOURCE = statistics.R
 BIN_DIR = bin
 
 .PHONY: clean
