@@ -44,21 +44,41 @@ result_pearson = cor(table_votes)
 write.csv(result_pearson, file = "bin/pearson.csv")
 print("Finish!")
 
+# Create a summary with ponts of each col
+symnum_pearson <- summary(symnum(result_pearson))
+write.csv(symnum_pearson, file = "bin/sympearson.csv")
+
+# Transform to matrix
 matrix_votes <- as.matrix(table_votes)
+
+# Transform values to 0 or 1
 matrix_votes[!is.finite(matrix_votes)] <- 0 
 matrix_votes <- ifelse(matrix_votes<4,0,matrix_votes)
 matrix_votes <- ifelse(matrix_votes>3,1,matrix_votes)
+
+# Transform to transactions
 transactions <- as(matrix_votes, 'transactions')
-# rules <- apriori(transactions, parameter = list(support=0.1, confidence=1))
-# inspect(head(sort(rules, by="lift"),10));
-# labels(apriori_result) rules <- apriori(Adult,
+
+# Create rules from matrix
 rules <- apriori(
                  transactions,
                  parameter = list(
-                                  minlen=10,
+                                  minlen=3,
                                   supp = 0.7,
                                   conf = 0.9,
                                   target = "rules"))
+
+# Show 10 rules on terminal
+print("######################################################")
+print("List Top 10 Rules")
+print("######################################################")
+inspect(head(sort(rules, by="lift"),10));
+
+# Get a summary of the rules
+print("######################################################")
+print("Show Summary")
+print("######################################################")
 summary(rules)
-labels(rules)
-symnum(table_votes)
+
+# Show all rules
+# labels(rules)
